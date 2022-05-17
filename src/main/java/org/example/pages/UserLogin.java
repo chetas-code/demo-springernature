@@ -1,9 +1,15 @@
 package org.example.pages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public class UserLogin {
      WebDriver driver;
@@ -51,11 +57,12 @@ public class UserLogin {
          login.click();
      }
 
-     public boolean checkSpringerNatureLogo(){
-        return springerNatureLogo.isDisplayed();
+     public boolean checkSpringerNatureLogo(){ return springerNatureLogo.isDisplayed();
      }
 
      public String checkUserProfileName(){
+         //@rachanaM - added wait to avoid flakiness as test execution was pausing here
+        new WebDriverWait(driver, Duration.ofSeconds(5)).until(ExpectedConditions.elementToBeClickable(userProfileName));
         return userProfileName.getText();
      }
 
@@ -65,7 +72,13 @@ public class UserLogin {
 
      public void clickLogout(){
         userProfileName.click();
+        //@rachanaM - added wait to avoid flakiness as test execution was pausing here
+        new WebDriverWait(driver, Duration.ofSeconds(5)).until(ExpectedConditions.elementToBeClickable(logOut));
         logOut.click();
+     }
+
+     public boolean checkUserSignOff(){
+        return signIn.isDisplayed();
      }
 
 

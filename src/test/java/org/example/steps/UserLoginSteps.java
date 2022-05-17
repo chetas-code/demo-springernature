@@ -21,9 +21,9 @@ public class UserLoginSteps {
          userLogin.clickSignIn();
      }
 
-    @When("^I enter username and password$")
-    public void iEnterUsernameAndPassword() {
-         userLogin.enterEmailPassword("rachanakruti@gmail.com","Test123");
+    @When("^I enter (.*) and (.*)$")
+    public void iEnterUsernameAndPassword(String username,String password) {
+         userLogin.enterEmailPassword(username,password);
     }
 
     @And("^I click on login$")
@@ -43,10 +43,7 @@ public class UserLoginSteps {
          Assert.assertEquals("Rachana Mulye", userLogin.checkUserProfileName());
     }
 
-    @When("^I enter wrong username and password$")
-    public void iEnterWrongUsernameAndPassword() {
-         userLogin.enterEmailPassword("rachanakruti@gmail.com","Rach");
-    }
+
 
     @Then("^I should see validation message$")
     public void iShouldSeeValidationMessage() {
@@ -57,5 +54,16 @@ public class UserLoginSteps {
     @When("^I click on logout$")
     public void iClickOnLogout() {
          userLogin.clickLogout();
+    }
+
+
+    @Then("^I am on landing page$")
+    public void iAmOnLandingPage() {
+       Assert.assertTrue(userLogin.checkUserSignOff());
+    }
+
+    @When("^I provide wrong username and password$")
+    public void iProvideWrongUsernameAndPassword() {
+       userLogin.enterEmailPassword("rachana@gmail.com","test121");
     }
 }
